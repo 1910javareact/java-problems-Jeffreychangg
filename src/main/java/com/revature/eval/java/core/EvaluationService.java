@@ -263,8 +263,25 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
+		
+		
+		boolean test=false; //initialize the boolean valuable
+		int sum=0;			//the total of the calculation from each digit's cubed value 
+		int d;				//the value of each digit
+		int inputValue;		//the value of the input to test if the value equals to sum
+		inputValue=input;	
+		while(input>0) {	//condition
+		d=input%10;			//to find the value of the current last digit
+		input=input/10;		//after we find the value of the last digit,reset the input so we can find the next one
+		sum=sum+(d*d*d);	//when the whileLoop stops the final sum we be tested if the input is armstrong number
+		}
+		if(inputValue==sum) { 
+			test =true;					
+		}	
+		return test;
+		
+		
 		// TODO Write an implementation for this method declaration
-		return false;
 	}
 
 	/**
