@@ -1,10 +1,16 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class EvaluationService {
+	
+	
+	
 
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
@@ -14,8 +20,12 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String reverse(String string) {
-		
-		return "";
+		char[] reverse=string.toCharArray(); 
+		String answer="";		
+		for (int i = reverse.length-1; i>=0; i--) {
+				answer=answer+reverse[i];
+			}
+			return answer;
 	}
 
 	/**
@@ -27,8 +37,15 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		char[] acronym=phrase.toCharArray();
+		
+		String answer=""+acronym[0];
+		for(int i=1;i<acronym.length;i++) {
+			if(acronym[i]==' ') {
+				answer=answer+acronym[i+1];
+			}
+		}
+		return answer;
 	}
 
 	/**
@@ -81,17 +98,23 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if(sideOne==sideTwo&&sideTwo==sideThree) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+			if(sideOne==sideTwo||sideOne==sideThree||sideTwo==sideThree) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
+			if(sideOne!=sideTwo&&sideOne!=sideThree&&sideTwo!=sideThree) {
+				return true;
+			}
 			return false;
 		}
 
@@ -113,9 +136,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+		String newString=string.toLowerCase();
+			int answer=0;
+		char[] s=newString.toCharArray();		
+		for(int i=0;i<s.length;i++) {
+		if(s[i]=='a'||s[i]=='e'||s[i]=='i'||s[i]=='o'||s[i]=='u'||s[i]=='l'||s[i]=='n'||s[i]=='r'||s[i]=='s'||s[i]=='t') {
+			answer=answer+1;
+			}else if(s[i]=='d'||s[i]=='g'){
+				answer=answer+2;
+			}else if(s[i]=='b'||s[i]=='c'||s[i]=='m'||s[i]=='p') {
+				answer=answer+3;
+			}else if(s[i]=='f'||s[i]=='h'||s[i]=='v'||s[i]=='w'||s[i]=='y'){
+				answer=answer+4;
+			}else if(s[i]=='k') {
+				answer=answer+5;
+			}else if(s[i]=='j'||s[i]=='x') {
+				answer=answer+8;
+			}else if(s[i]=='q'||s[i]=='z') {
+				answer=answer+10;
+			}
+			
+		}
+
+		return answer;
+		
+		}
 
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
@@ -149,8 +194,33 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	
+		String rs=string.replace(" ","");			
+		String rs1=rs.replace("(","");
+		String rs2=rs1.replace(")","");
+		String rs3=rs2.replace("-","");
+		String rs4=rs3.replace(".","");
+		String rs5=rs4.replace("+","");
+		int length=rs5.length();
+		char[] phoneNumber=rs5.toCharArray();
+
+		if(length==11 && phoneNumber[0]=='1' && phoneNumber[1]!='0' && phoneNumber[1]!='1' && phoneNumber[4]!='0' && phoneNumber[4]!='1') {
+		rs5=rs5.replaceFirst("1","");
+		System.out.println(rs5);
+		
+
+		return rs5;
+		
+		}else if(length==10 && phoneNumber[0]!='0' && phoneNumber[0]!='1' && phoneNumber[3]!='0' && phoneNumber[3]!='1') {
+
+		return rs5;
+		
+		}else {
+		rs5=null;
+		}
+		
+		return rs5;
+
 	}
 
 	/**
@@ -163,7 +233,10 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		
+
+		
 		return null;
 	}
 
@@ -243,8 +316,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String oriStr, fp, lp, pigLatin;
+		int i,l;
+		char vowel;
+		oriStr=string;
+		oriStr=oriStr.toLowerCase();
+		l=oriStr.length();
+		System.out.println(oriStr);
+		for(i=0;i<l;i++) {
+			vowel=oriStr.charAt(i);
+			if(vowel=='a'||vowel=='e'||vowel=='i'||vowel=='o'||vowel=='u') {
+				break;
+			}
+		}
+		lp=oriStr.substring(0,i);
+		fp=oriStr.substring(i);
+		pigLatin=fp+lp+"ay";
+		System.out.println(pigLatin);
+
+		return pigLatin;
+		
 	}
 
 	/**
@@ -276,7 +367,7 @@ public class EvaluationService {
 		sum=sum+(d*d*d);	//when the whileLoop stops the final sum we be tested if the input is armstrong number
 		}
 		if(inputValue==sum) { 
-			test =true;					
+			test=true;					
 		}	
 		return test;
 		
@@ -295,8 +386,25 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primeFactor=new ArrayList<Long>();
+		
+		
+		int f=2;
+		while(f<=l) {
+			if(f==l) {
+			primeFactor.add((long) f);
+			System.out.println(f);
+			break;
+			}else if(l%f==0) {
+			primeFactor.add((long) f);
+			System.out.println(f);
+			l=l/f;
+			}else 
+			f++;
+			}
+		
+	
+		return primeFactor;
 	}
 
 	/**
@@ -353,9 +461,29 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		int j=1,c=i,x,nthPrime=0; //c=nth count,j=checked number, x=counts
+		
+		for(j=2,x=1;x<=c;j++) {
+			if(isPrime(j)) {
+				x++;
+				nthPrime=j;
+				System.out.println(j);
+			}
+		}
+		
+		System.out.println(nthPrime);
+		
+		return nthPrime;
 	}
+		public static boolean isPrime(int number) {
+			for(int i=2;i<number;i++) {
+				if(number%i==0) {
+					return false;
+				}
+			}
+			return true;
+		}
 
 	/**
 	 * 13 & 14. Create an implementation of the atbash cipher, an ancient encryption
@@ -383,15 +511,72 @@ public class EvaluationService {
 	 */
 	static class AtbashCipher {
 
-		/**
-		 * Question 13
-		 * 
-		 * @param string
-		 * @return
-		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+		string=string.replace(" ", "");
+		System.out.println(string+" "+string.length());
+		string=string.toLowerCase();
+		string=string.replace("a"," ");
+		string=string.replace("z","a");
+		string=string.replace(" ","z");
+
+		string=string.replace("b"," ");
+		string=string.replace("y","b");
+		string=string.replace(" ","y");
+		
+		string=string.replace("c"," ");
+		string=string.replace("x","c");
+		string=string.replace(" ","x");
+		
+		string=string.replace("d"," ");
+		string=string.replace("w","d");
+		string=string.replace(" ","w");
+		
+		string=string.replace("e"," ");
+		string=string.replace("v","e");
+		string=string.replace(" ","v");
+		
+		string=string.replace("f"," ");
+		string=string.replace("u","f");
+		string=string.replace(" ","u");
+		
+		string=string.replace("g"," ");
+		string=string.replace("t","g");
+		string=string.replace(" ","t");
+		
+		string=string.replace("h"," ");
+		string=string.replace("s","h");
+		string=string.replace(" ","s");
+		
+		string=string.replace("i"," ");
+		string=string.replace("r","i");
+		string=string.replace(" ","r");
+		
+		string=string.replace("j"," ");
+		string=string.replace("q","j");
+		string=string.replace(" ","q");
+		
+		string=string.replace("k"," ");
+		string=string.replace("p","k");
+		string=string.replace(" ","p");
+		
+		string=string.replace("l"," ");
+		string=string.replace("o","l");
+		string=string.replace(" ","o");
+		
+		string=string.replace("m"," ");
+		string=string.replace("n","m");
+		string=string.replace(" ","n");
+		
+	    String regex = "(.{5})";
+	    string = string.replaceAll(regex, "$1 ");
+		System.out.println(string);
+		
+
+		
+		
+
+			
+			return string;
 		}
 
 		/**
@@ -401,8 +586,64 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string=string.replace(" ","");
+			System.out.println(string);
+			string=string.toLowerCase();
+			string=string.replace("a"," ");
+			string=string.replace("z","a");
+			string=string.replace(" ","z");
+
+			string=string.replace("b"," ");
+			string=string.replace("y","b");
+			string=string.replace(" ","y");
+			
+			string=string.replace("c"," ");
+			string=string.replace("x","c");
+			string=string.replace(" ","x");
+			
+			string=string.replace("d"," ");
+			string=string.replace("w","d");
+			string=string.replace(" ","w");
+			
+			string=string.replace("e"," ");
+			string=string.replace("v","e");
+			string=string.replace(" ","v");
+			
+			string=string.replace("f"," ");
+			string=string.replace("u","f");
+			string=string.replace(" ","u");
+			
+			string=string.replace("g"," ");
+			string=string.replace("t","g");
+			string=string.replace(" ","t");
+			
+			string=string.replace("h"," ");
+			string=string.replace("s","h");
+			string=string.replace(" ","s");
+			
+			string=string.replace("i"," ");
+			string=string.replace("r","i");
+			string=string.replace(" ","r");
+			
+			string=string.replace("j"," ");
+			string=string.replace("q","j");
+			string=string.replace(" ","q");
+			
+			string=string.replace("k"," ");
+			string=string.replace("p","k");
+			string=string.replace(" ","p");
+			
+			string=string.replace("l"," ");
+			string=string.replace("o","l");
+			string=string.replace(" ","o");
+			
+			string=string.replace("m"," ");
+			string=string.replace("n","m");
+			string=string.replace(" ","n");
+			
+			
+			System.out.println(string);
+			return string;
 		}
 	}
 
@@ -447,7 +688,11 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+		string=string.toLowerCase();
+		if(string.indexOf("a")>-1&&string.indexOf("b")>-1&&string.indexOf("c")>-1&&string.indexOf("d")>-1&&string.indexOf("e")>-1&&string.indexOf("f")>-1&&string.indexOf("g")>-1&&string.indexOf("h")>-1&&string.indexOf("i")>-1&&string.indexOf("j")>-1&&string.indexOf("k")>-1&&string.indexOf("l")>-1&&string.indexOf("m")>-1&&string.indexOf("n")>-1&&string.indexOf("o")>-1&&string.indexOf("p")>-1&&string.indexOf("q")>-1&&string.indexOf("r")>-1&&string.indexOf("s")>-1&&string.indexOf("t")>-1&&string.indexOf("u")>-1&&string.indexOf("v")>-1&&string.indexOf("w")>-1&&string.indexOf("x")>-1&&string.indexOf("y")>-1&&string.indexOf("z")>-1) {
+		return true;
+		}
+
 		return false;
 	}
 
@@ -460,7 +705,9 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
+
+
+		
 		return null;
 	}
 
@@ -477,9 +724,33 @@ public class EvaluationService {
 	 * @param set
 	 * @return
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		public int getSumOfMultiples(int i, int[] set) {
+			Set<Integer> muti = new TreeSet<Integer>();
+			
+			int l=set.length;
+			System.out.println("l= "+l);
+			int sum=0;
+
+			for(int j=1;j<i;j++) {
+				for(int s=0;s<l;s++) {	//set[0]~set[l-1]
+					if(set[s]*j<i) {
+						muti.add(set[s]*j);
+
+					}
+
+				}
+			}
+			
+			int l2=muti.size();	
+			System.out.println(muti);
+			List<Integer> list=new ArrayList<>(muti);
+			for(int k=0;k<l2;k++) {
+
+				sum=sum+list.get(k);
+			}
+			System.out.println("final sum is: "+sum);
+			return sum;
 	}
 
 	/**
