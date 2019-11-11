@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 public class EvaluationService {
 	
@@ -687,9 +688,34 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
+		List<Integer> Isbn = new ArrayList<>();
+		int sum = 0;
+		int t = 10;
+		for(int i = 0; i < string.length(); i++) {
+			if(Pattern.matches("[0-9]|X", Character.toString(string.charAt(i)))) {
+				if(string.charAt(i) == 'X') {
+					Isbn.add(10);
+				}
+				else {
+					Isbn.add(Character.getNumericValue(string.charAt(i)));
+				}
+			}
+		}
+		for(int j = 0; j < Isbn.size(); j++) {
+			sum += (Isbn.get(j) * t);		//x1*9+x2*8.....
+			t--;
+		}
+		if(sum % 11 == 0) {
+			System.out.println("true");
+			return true;
+		}
+		else{
+			System.out.println("false");
 		return false;
+		}
+		
 	}
 
 	/**
@@ -807,10 +833,65 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
-	}
+public boolean isLuhnValid(String string) {
+			
+			string=string.replace("\\s+", "");
+			System.out.println("string= "+string);
+			String[] arr=string.split("");
+			int[] intArr=new int[arr.length];
+			if (string.contains("[a-zA-Z]+") == true || string.length()!=17||string.matches("[^0-9]+")) {
+				System.out.println("false");
+				return false;
+			}else {
+			
+			for(int i=0;i<arr.length;i++) {				//copy value from string to int array
+		
+				intArr[i]=Integer.valueOf(arr[i]);
+				
+			}
+			System.out.println("int array= "+Arrays.toString(intArr));
+				
+				
+			
+			for(int i=1;i<arr.length;i+=2) {
+				int d=doubleDig(intArr[i]);
+			
+				System.out.println("intArr["+i+"]= "+intArr[i]);
+				System.out.println("d= "+d);
+				intArr[i]=d;
+				System.out.println("intArr["+i+"]= "+intArr[i]);
+				
+			}
+				System.out.println("new int array= "+Arrays.toString(intArr));
+			if(test(intArr)==true) {
+				
+				System.out.println("true");
+				return true;
+			}
+			System.out.println("false");
+			return false;
+			}
+		}
+		
+		public static int doubleDig(int x) {
+			if(x*2>9) {
+				x=x*2-9;
+			}else {
+				x=x*2;
+			}
+			return x;
+		}
+		public static boolean test(int[] x) {
+			int sum=0;
+			for(int i=1;i<x.length;i++) {
+
+				sum=sum+x[i];	
+			}
+				if(sum%10==0) {
+					return true;
+				}
+			return false;
+		}
 
 	/**
 	 * 20. Parse and evaluate simple math word problems returning the answer as an
@@ -841,7 +922,7 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 
-		String a=string.replace("What","").replace("?", "").replace("is", "").replace(" ","").replace("plus"," + ").replace("minus"," - ").replace("multiplied"," * ").replace("divided"," / ");
+		String a=string.replace("What","").replace("?", "").replace("is", "").replace(" ","").replace("plus"," + ").replace("minus"," - ").replace("multiplied"," * ").replace("divided"," / ").replace("by", "");
 
 		String[] array=a.split(" ");
 
