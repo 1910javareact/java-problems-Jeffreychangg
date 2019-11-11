@@ -2,6 +2,7 @@ package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -839,8 +840,38 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		String a=string.replace("What","").replace("?", "").replace("is", "").replace(" ","").replace("plus"," + ").replace("minus"," - ").replace("multiplied"," * ").replace("divided"," / ");
+
+		String[] array=a.split(" ");
+
+		System.out.println("array= "+Arrays.toString(array));
+		System.out.println(array[1]);
+		System.out.println(a);
+		int x=Integer.valueOf(array[0]);
+		int y=Integer.valueOf(array[2]);
+
+		System.out.println("x= "+x);
+		System.out.println("y= "+y);
+
+		int answer=0;
+		if (array[1].equals("+")) {
+			answer=x+y;
+			System.out.println("x+y= "+answer);
+		}else if(array[1].equals("-")){
+			answer=x-y;
+			System.out.println("x-y= "+answer);
+		}else if(array[1].equals("*")){
+			answer=x*y;
+			System.out.println("x*y= "+answer);
+		}else if(array[1].equals("/")){
+			answer=x/y;
+			System.out.println("x/y= "+answer);
+		}
+
+
+		
+		return answer;
 	}
 
 }
