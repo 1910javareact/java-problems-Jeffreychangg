@@ -2,6 +2,7 @@ package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -233,11 +234,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
+
+		string=string.toLowerCase();
+		String[] array = string.split(" ");
 		
-		
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		for(int i = 0; i < array.length; i++) {
+			if(map.containsKey(array[i])) { 
+				Integer count = (Integer) map.get(array[i]); 
+				count++;
+				map.put(array[i], count);
+				} else {
+				map.put(array[i], 1); 
+				} 
+			} 
+		System.out.println(map); 
+	
+	
+
 
 		
-		return null;
+		return map;
 	}
 
 	/**
